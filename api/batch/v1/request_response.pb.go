@@ -40,9 +40,10 @@ type BatchOperationInput struct {
 	Request *v11.StartBatchOperationRequest `protobuf:"bytes,7,opt,name=request,proto3" json:"request,omitempty"`
 	// The request to start an admin batch operation.
 	// Mutually exclusive with StartBatchOperationRequest request.
-	AdminRequest  *v12.StartAdminBatchOperationRequest `protobuf:"bytes,8,opt,name=admin_request,json=adminRequest,proto3" json:"admin_request,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	AdminRequest        *v12.StartAdminBatchOperationRequest `protobuf:"bytes,8,opt,name=admin_request,json=adminRequest,proto3" json:"admin_request,omitempty"`
+	SoleRetryableErrors []string                             `protobuf:"bytes,9,rep,name=sole_retryable_errors,json=soleRetryableErrors,proto3" json:"sole_retryable_errors,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
 }
 
 func (x *BatchOperationInput) Reset() {
@@ -131,11 +132,18 @@ func (x *BatchOperationInput) GetAdminRequest() *v12.StartAdminBatchOperationReq
 	return nil
 }
 
+func (x *BatchOperationInput) GetSoleRetryableErrors() []string {
+	if x != nil {
+		return x.SoleRetryableErrors
+	}
+	return nil
+}
+
 var File_temporal_server_api_batch_v1_request_response_proto protoreflect.FileDescriptor
 
 const file_temporal_server_api_batch_v1_request_response_proto_rawDesc = "" +
 	"\n" +
-	"3temporal/server/api/batch/v1/request_response.proto\x12\x1ctemporal.server.api.batch.v1\x1a\x1egoogle/protobuf/duration.proto\x1a+temporal/api/enums/v1/batch_operation.proto\x1a6temporal/api/workflowservice/v1/request_response.proto\x1a:temporal/server/api/adminservice/v1/request_response.proto\"\xb0\x04\n" +
+	"3temporal/server/api/batch/v1/request_response.proto\x12\x1ctemporal.server.api.batch.v1\x1a\x1egoogle/protobuf/duration.proto\x1a+temporal/api/enums/v1/batch_operation.proto\x1a6temporal/api/workflowservice/v1/request_response.proto\x1a:temporal/server/api/adminservice/v1/request_response.proto\"\xe4\x04\n" +
 	"\x13BatchOperationInput\x12!\n" +
 	"\fnamespace_id\x18\x01 \x01(\tR\vnamespaceId\x12 \n" +
 	"\vconcurrency\x18\x02 \x01(\x03R\vconcurrency\x12=\n" +
@@ -145,7 +153,8 @@ const file_temporal_server_api_batch_v1_request_response_proto_rawDesc = "" +
 	"\n" +
 	"batch_type\x18\x06 \x01(\x0e2).temporal.api.enums.v1.BatchOperationTypeR\tbatchType\x12U\n" +
 	"\arequest\x18\a \x01(\v2;.temporal.api.workflowservice.v1.StartBatchOperationRequestR\arequest\x12i\n" +
-	"\radmin_request\x18\b \x01(\v2D.temporal.server.api.adminservice.v1.StartAdminBatchOperationRequestR\fadminRequestB*Z(go.temporal.io/server/api/batch/v1;batchb\x06proto3"
+	"\radmin_request\x18\b \x01(\v2D.temporal.server.api.adminservice.v1.StartAdminBatchOperationRequestR\fadminRequest\x122\n" +
+	"\x15sole_retryable_errors\x18\t \x03(\tR\x13soleRetryableErrorsB*Z(go.temporal.io/server/api/batch/v1;batchb\x06proto3"
 
 var (
 	file_temporal_server_api_batch_v1_request_response_proto_rawDescOnce sync.Once

@@ -654,7 +654,8 @@ func (a *activities) handleTaskResult(
 		var appErr *temporal.ApplicationError
 		nonRetryable := (errors.As(err, &appErr) && appErr.NonRetryable()) ||
 			isNonRetryableError(err, batchOperation.BatchType) ||
-			slices.Contains(batchOperation.NonRetryableErrors, err.Error())
+			slices.Contains(batchOperation.NonRetryableErrors, err.Error()) ||
+			(len(batchOperation.SoleRetryableErrors) > 0 && !slices.Contains(batchOperation.SoleRetryableErrors, err.Error()))
 
 		if nonRetryable || task.attempts > int(batchOperation.AttemptsOnRetryableError) {
 			respCh <- taskResponse{err: err, page: task.page}

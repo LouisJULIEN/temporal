@@ -30,4 +30,6 @@ message BatchOperationInput {
   // The request to start an admin batch operation.
   // Mutually exclusive with StartBatchOperationRequest request.
   temporal.server.api.adminservice.v1.StartAdminBatchOperationRequest admin_request = 8;
+
+  repeated string sole_retryable_errors = 9;
 }
