@@ -212,13 +212,14 @@ If you need to make changes to the gRPC / protobuf definitions while also workin
 2. Make your changes to `api`, commit to a branch.
 3. In your copy of `api-go`:
    1. Initialize submodules: `git submodule update --init --recursive`
-   2. Point api submodule at your branch. If you make more commits to the api repo, run the last command again.
+   2. Initialize repo:  `make`
+   3. Point api submodule at your branch. If you make more commits to the api repo, run the last command again.
       ```bash
       git submodule set-url proto/api ../api
       git submodule set-branch --branch mystuff proto/api
-      git submodule update --remote proto/api
+      cd proto/api && git fetch ../../../api master  && git checkout FETCH_HEAD
       ```
-   3. Compile protos: `make proto`
+   4. Compile protos: `make proto`
 4. (Optional, if SDK changes are required:) In your copy of `sdk-go`:
    1. Point `go.mod` at local `api-go`:
       ```
